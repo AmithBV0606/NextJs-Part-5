@@ -328,7 +328,7 @@ export default function RootLayout({
 
 - The solution is to create your context and render its providers inside a dedicated Client Component.
 
-## Client-only Code 
+## Client-only Code (1st Client component pattern)
 
 - Just like how we need to keep certain operations server-side, it's equally crucial to keep some functionality strictly on the client side.
 
@@ -368,3 +368,40 @@ export const ClientSideFunction = () => {
 - There won't be any problem in client component, but server component will throw an error namely
 
     -  "You're importing a component that imports client-only. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default."
+
+## Client Component Placement (2nd Client component pattern)
+
+- The strategic placement of client components in your component tree.
+
+- Since server components cannot handle state and interactivity, we need client components to fill this gap.
+
+- The key recommendation here is to position these client components lower in your component tree.
+
+### Demo 
+
+**NOTE :** Refer `landing-page/page.tsx`, `Navbar`, `components/nav-links.tsx` and `components/nav-search.tsx` files for actual demo.
+
+**Landing page :**
+<img src="./assets/Pic-1.png" />
+
+**Navbar :**
+<img src="./assets/Pic-2.png" />
+
+**Landing page component tree :**
+<img src="./assets/Pic-3.png" />
+
+**NOTE :** If "use client" is declared in "Navbar" component, shouldn't that be the only component running client side?
+
+<img src="./assets/Pic-4.png" />
+
+- This is a common misconception, when you mark a component with "use client", it doesn't just affect that component but also affects every child component in the component tree below it.
+
+- In the above case `NavLinks` and `NavSearch` becomes the client component.
+
+<img src="./assets/Pic-5.png" />
+
+- The optimal solution would be to push the client component as far down the tree as possible.
+
+- In our case we can only make `NavSearch` component as a client component instead of making the whole `Navbar` component, a client component. 
+
+<img src="./assets/Pic-6.png" />
