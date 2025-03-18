@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next-Js by Codevolution : Part-5
 
-## Getting Started
+### Topics Covered :
 
-First, run the development server:
+- Streaming
+- Server and Client Composition Patterns
+- Server-only Code
+- Third Party Packages
+- Context Providers
+- Client-only Code
+- Client Component Placement
+- Interleaving Server and Client Components
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Streaming
+
+- Streaming is third and last Server rendering strategy that allows for progressive UI rendering from the server.
+
+- Work is broken down into smaller chunks and streamed to the client as soon as they're ready.
+
+- This means users can see parts of the page right away, without waiting for everything to load.
+
+- It's particularly powerful for improving initial page load times and handling UI elements that depends on slower data fetches, which would normally hold up the entire route.
+
+- Streaming comes built right into the App Router.
+
+### Demo : 
+
+- Create the following components which mimics the delay.
+
+```js
+// components/product.tsx
+
+export const Product = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return <div>Product</div>;
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```js
+// components/reviews.tsx
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+export const Reviews = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+  return <div>Reviews</div>;
+};
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Create a folder named `product-reviews` and a `page.tsx` file inside it.
 
-## Learn More
+```js
+// app/product-reviews/page.tsx
 
-To learn more about Next.js, take a look at the following resources:
+import { Product } from "@/components/product";
+import { Reviews } from "@/components/reviews";
+import { Suspense } from "react";
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+export default function ProductReviews() {
+  return (
+    <div className="flex flex-col gap-5">
+      <h1 className="text-2xl font-bold underline">Product reviews</h1>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+      <Suspense fallback={<p>Loading product details.....</p>}>
+        <Product />
+      </Suspense>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+      <Suspense fallback={<p>Loading reviews.....</p>}>
+        <Reviews />
+      </Suspense>
+    </div>
+  );
+}
+```
