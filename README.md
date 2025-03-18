@@ -70,3 +70,21 @@ export default function ProductReviews() {
   );
 }
 ```
+
+## Server and Client Composition Patterns
+
+- <ins>**Server components :**</ins>
+
+    - Fetching data
+    - Accessing backends resources directly
+    - Kepping sensitive information(like assess tokens and API keys) secure on the server.
+    - Handling large dependencies server-side - which means lss JavaScript for your users to download.
+
+- <ins>**Client components :**</ins>
+
+    - Adding interactivity.
+    - Handling event listeners (like onClick(), onChange(), etc)
+    - Managing state and lifecycle effects (using hooks like useState(), useReducer(), useEffect())
+    - Working with browser-specific APIs
+    - Implementing custom hooks.
+    - Using React class components.
