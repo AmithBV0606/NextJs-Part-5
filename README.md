@@ -89,7 +89,7 @@ export default function ProductReviews() {
     - Implementing custom hooks.
     - Using React class components.
 
-## Server-only Code - Seperation of server-only code 
+## Server-only Code - Seperation of server-only code (1st Server component pattern)
 
 - Some code is specifically designed to run exclusively on the server.
 
@@ -118,3 +118,122 @@ npm install server-only
 ```js
 import "server-only";
 ```
+
+## Third Party Packages(2nd Server component pattern)
+
+- Server Components have introduced an exciting new paradigm in React, and the ecosystem is evolving to keep up.
+
+- Third-party packages are starting to add the "use client" directive to components that need client-side features, making it clear where they should run.
+
+- Many npm packages haven't made this transition yet.
+
+- This means while they work fine in Client Components, they might break or fail completely in Server Components.
+
+- We can wrap the third-party components that need client-side features in our own Client Components.
+
+### Demo 
+
+- For demo purposes, we'll use "react-slick" packages.
+
+```bash
+npm install react-slick slick-carousel @types/react-slick
+```
+
+- Add the following code to `global.css`.
+
+```css
+.image-slider-container {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.image-slider-container .slick-prev:before,
+.image-slider-container .slick-next:before {
+  color: white;
+}
+```
+
+- Add the follwing code to `client-route/page.tsx`.
+
+```js
+// client-route/page.tsx
+"use client";
+
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+export default function ClientRoutePage() {
+  const settings = {
+    dots: true,
+  };
+  return (
+    <div className="image-slider-container">
+      <Slider {...settings}>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+      </Slider>
+    </div>
+  );
+}
+```
+
+- If we visit the route `/client-route/page.tsx`, it'll work perfectly fine as the "ClientRoutePage" component already has "use client" directive written on top.
+
+- Now let's see what happens when we use carousel directly in server-component. Add the following code to `/server-route/page.tsx`.
+
+```js
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+export default function ServerRoutePage() {
+  const settings = {
+    dots: true,
+  };
+  return (
+    <div className="image-slider-container">
+      <Slider {...settings}>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/400/200" />
+        </div>
+      </Slider>
+    </div>
+  );
+}
+```
+
+- If we visit the route `/server-route/page.tsx`, it'll throw an error: "Super expression must either be null or a function", as the "ServerRoutePage" component is not wrapped with "use client" directive on top.
+
+- This leads to an error because slider component uses client side features but the library itself doesn't include the "use client" directive.
+
+- But we cannot add "use client" to our server route, here in this component becasue it's a server only code.
+
+**Solution :** Encapsulate 3rd part components that depends on client only features with in your own client component.
+
+- Create a file named `ImageSlider.tsx`, inside the components folder.
+
+- Move the code of carousel to the `ImageSlider.tsx` file and add "use client" directive on top of the file.
+
+- And use "ImageSlider" component inside any server components.

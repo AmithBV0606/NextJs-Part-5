@@ -1,25 +1,11 @@
 "use client";
 
-// import { serverSideFunction } from "@/utils/server-utils";
-
-// export default function ClientRoutePage() {
-//   const result = serverSideFunction();
-
-//   return (
-//     <div>
-//       <h1 className="text-2xl font-bold underline">Client route page!!</h1>
-
-//       <p>Result : {result}</p>
-//     </div>
-//   );
-// }
-
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function ClientRoutePage() {
+export const ImageSlider = () => {
   const settings = {
     dots: true,
   };
