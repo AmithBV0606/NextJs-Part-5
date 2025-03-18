@@ -18,7 +18,12 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+// Context providers
 import { useTheme } from "@/components/theme-provider";
+
+// Client Only code
+import { ClientSideFunction } from "@/utils/client-utils";
 
 export default function ClientRoutePage() {
   const settings = {
@@ -26,6 +31,8 @@ export default function ClientRoutePage() {
   };
 
   const theme = useTheme();
+
+  const result = ClientSideFunction();
 
   return (
     <div className="image-slider-container">
@@ -47,6 +54,8 @@ export default function ClientRoutePage() {
           <img src="https://picsum.photos/400/200" />
         </div>
       </Slider>
+
+      <p>Result : {result}</p>
     </div>
   );
 }

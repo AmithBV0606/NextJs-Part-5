@@ -111,6 +111,28 @@ export default function ProductReviews() {
 npm install server-only
 ```
 
+- Create a file named `server-utils.ts` in the `utils` folder and add the following code.
+
+```js
+//  This is just to show an example. This is not the actual implementation. Code written in this file is only meant to run on server.
+
+import "server-only";
+
+export const serverSideFunction = () => {
+  console.log(
+    `use multiple libraries,
+        use environment variables
+        interact with a database
+        process confidential information`
+  );
+  return "server result!!!";
+};
+```
+
+- Now try to use this function in both server and client components by importing this function i.e "serverSideFunction".
+
+- There won't be any problem in server component, but client component will throw an error.
+
 - This package is like having a security guard that stops server code from sneaking into the client bundle.
 
 - Whichever file you want to make it server-only file, Insert the following code at the top of the file.
@@ -305,3 +327,44 @@ export default function RootLayout({
 ```
 
 - The solution is to create your context and render its providers inside a dedicated Client Component.
+
+## Client-only Code 
+
+- Just like how we need to keep certain operations server-side, it's equally crucial to keep some functionality strictly on the client side.
+
+- Client-Only code works with browser-specific features - things like DOM manipulation, window object interactions or localStorage operations.
+
+- These features aren't available on the server, so we need to make sure such code runs only on the client side to avoid server-side rendering errors.
+
+- To prevent unintended server side usage of client side code, we can use a package called client-only.
+
+### Demo
+
+- Install the following package : 
+
+```bash
+npm i client-only
+```
+
+- This package creates a safety net. If someone tries to use this code server-side it will fail at build time.
+
+- Create a file named `client-utils.ts` inside the `utils` folder and add the following code.
+
+```js
+import "client-only";
+
+export const ClientSideFunction = () => {
+  console.log(
+    `use window object,
+        use localStorage`
+  );
+
+  return "Client result!!!";
+};
+```
+
+- Now try to use this function in both server and client components by importing this function i.e "ClientSideFunction".
+
+- There won't be any problem in client component, but server component will throw an error namely
+
+    -  "You're importing a component that imports client-only. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default."

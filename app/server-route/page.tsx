@@ -49,16 +49,26 @@
 // Solution : Encapsulate 3rd part components that depends on client only features with in your own client component.
 
 import { ImageSlider } from "@/components/ImageSlider";
+
+// Server-Only code
 import { serverSideFunction } from "@/utils/server-utils";
+
+// Client-Only code
+// import { ClientSideFunction } from "@/utils/client-utils";
 
 export default function ServerRoutePage() {
   const result = serverSideFunction();
 
+  // const result2 = ClientSideFunction();
+
   return (
     <div>
       <h1 className="text-2xl font-bold underline">Server route page!!</h1>
+
       <p>Result : {result}</p>
       <ImageSlider />
+
+      {/* <p>Another Result : {result2}</p> */}
     </div>
   );
 }
