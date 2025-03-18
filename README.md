@@ -88,3 +88,33 @@ export default function ProductReviews() {
     - Working with browser-specific APIs
     - Implementing custom hooks.
     - Using React class components.
+
+## Server-only Code - Seperation of server-only code 
+
+- Some code is specifically designed to run exclusively on the server.
+
+- Think about modules or functions that work with multiple libraries, handle environment variables, communicate directly with databases or process sesitive information.
+
+- Since JavaScript modules can be shared between Server and Client Components, code meant for the server could accidentally find it's way to the client.
+
+- This is bad news as it can bloat your JavaScript bundle, expose your secret keys, databases queries and sensitive business logic.
+
+- It's super important to keep server-only code seperate from client-side code.
+
+### Solution : 
+
+- Using server-only package : This throws a build-time error if someone accidentally imports server code into a client component.
+
+- Install the following package.
+
+```bash
+npm install server-only
+```
+
+- This package is like having a security guard that stops server code from sneaking into the client bundle.
+
+- Whichever file you want to make it server-only file, Insert the following code at the top of the file.
+
+```js
+import "server-only";
+```
