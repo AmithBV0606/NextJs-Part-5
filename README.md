@@ -432,3 +432,5 @@ Visit : `app/landing-page/page.tsx`
 4. In the client environment, there is no file system module and hence the error.
 
 5. It is important to remember that importing a server component into a client component is a pattern not supported in Next.js
+
+**Solution :** instead of nesting the server components, pass it as a prop to the client component, a common approach is using reacts children prop to create what is called a "slot".
