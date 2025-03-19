@@ -381,13 +381,18 @@ export const ClientSideFunction = () => {
 
 **NOTE :** Refer `landing-page/page.tsx`, `Navbar`, `components/nav-links.tsx` and `components/nav-search.tsx` files for actual demo.
 
-**Landing page :**
+**Landing page :** 
+
+Visit : `app/landing-page/page.tsx`
 <img src="./assets/Pic-1.png" />
 
-**Navbar :**
+**Navbar :** 
+
+`components/Navbar.tsx`
 <img src="./assets/Pic-2.png" />
 
 **Landing page component tree :**
+
 <img src="./assets/Pic-3.png" />
 
 **NOTE :** If "use client" is declared in "Navbar" component, shouldn't that be the only component running client side?
@@ -405,3 +410,7 @@ export const ClientSideFunction = () => {
 - In our case we can only make `NavSearch` component as a client component instead of making the whole `Navbar` component, a client component. 
 
 <img src="./assets/Pic-6.png" />
+
+## Interleaving Server and Client Components (Supported and unsupported patterns)
+
+- Pattern 1 : Server component inside another server component. Visit - `app/interleaving/page.tsx`, `component/server-component-one.tsx` and `server-component-two.tsx`.
