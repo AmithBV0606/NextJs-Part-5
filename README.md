@@ -414,3 +414,5 @@ Visit : `app/landing-page/page.tsx`
 ## Interleaving Server and Client Components (Supported and unsupported patterns)
 
 - Pattern 1 : Server component inside another server component. Visit - `app/interleaving/page.tsx`, `component/server-component-one.tsx` and `server-component-two.tsx`.
+
+- Pattern 2 : Client component inside another client component. Visit - `app/interleaving/page.tsx`, `component/client-component-one.tsx` and `client-component-two.tsx`.
