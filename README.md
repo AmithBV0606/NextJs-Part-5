@@ -418,3 +418,17 @@ Visit : `app/landing-page/page.tsx`
 - Pattern 2 : Client component inside another client component. Visit - `app/interleaving/page.tsx`, `component/client-component-one.tsx` and `client-component-two.tsx`.
 
 - Pattern 3 : Client component inside a server component. Visit - `app/interleaving/page.tsx`, `component/server-component-one.tsx` and `client-component-one.tsx`.
+
+- Pattern 4 : Server component inside a client component. Visit - `app/interleaving/page.tsx` and `component/client-component-one.tsx`.
+
+**NOTE :** 
+
+1. In the 4th pattern, you'll see an error because any component nested inside a client component automaticaaly becomes a client component too.
+
+2. Since client components render after server components, you can't import a server component directly into a client component.
+
+3. Even though server component one is defined as server component, when it is nested inside a client component, it transforms into a client component which is executed client side.
+
+4. In the client environment, there is no file system module and hence the error.
+
+5. It is important to remember that importing a server component into a client component is a pattern not supported in Next.js

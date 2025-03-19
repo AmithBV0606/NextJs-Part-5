@@ -1,6 +1,8 @@
 // import { ServerComponentOne } from "@/components/server-component-one";
+// import { ClientComponentOne } from "@/components/cleint-component-one";
+// import { ServerComponentOne } from "@/components/server-component-one";
+
 import { ClientComponentOne } from "@/components/cleint-component-one";
-import { ServerComponentOne } from "@/components/server-component-one";
 
 export default function InterLeavingPage() {
   return (
@@ -13,7 +15,10 @@ export default function InterLeavingPage() {
       {/* <ClientComponentOne /> */}
 
       {/* Example for Client component inside a server component */}
-      <ServerComponentOne />
+      {/* <ServerComponentOne /> */}
+
+      {/* Example for Server component inside a client component */}
+      <ClientComponentOne />
     </div>
   );
 }
